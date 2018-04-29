@@ -1,0 +1,48 @@
+// JS++ jQuery Drag & Drop Sample - module with actual drag & drop logic
+
+import Externals.DOM;
+import JSPPSamples.DragAndDrop.JQuery;
+
+module JSPPSamples.DragAndDrop {
+
+    // Prevent "ghost" image by removing default click action
+    public bool onClickPreventDefault(external evt) {
+        evt.preventDefault();
+        return false;
+    }
+
+    // This is the actual drag & drop logic
+    // When we click the draggable element, we activate "mousemove" and "mouseup"
+    // listeners. The draggable element will continue to follow the user's cursor
+    // (via "mousemove") until the user releases the mouse button (via "mouseup")
+    public bool(external) getOnMouseDown($draggable) {
+        bool onMouseDown(external evt) {
+            evt.preventDefault();
+
+            $(window).mousemove(void(_evt) {
+                int mouseX = window.event ? window.event.clientX : _evt.pageX;
+                int mouseY = window.event ? window.event.clientY : _evt.pageY;
+
+                int adjustX = $draggable.width() / 2;
+                int adjustY = $draggable.height() / 2;
+
+                int positionX = mouseX - adjustX;
+                int positionY = mouseY - adjustY;
+
+                $draggable.offset({
+                    left: positionX,
+                    top: positionY
+                });
+            });
+
+            $(window).mouseup(void() {
+                $(window).unbind("mousemove");
+                $(window).unbind("mouseup");
+            });
+
+            return false;
+        }
+
+        return onMouseDown;
+    }
+}

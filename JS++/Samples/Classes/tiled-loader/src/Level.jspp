@@ -1,0 +1,171 @@
+import Externals.DOM;
+
+module Tiled
+{
+    /**
+     * The 'Level' class represents a single Tiled map.
+     */
+    class Level
+    {
+        private unsigned int mWidth, mHeight, mTileWidth, mTileHeight;
+        private var mLayerCanvases = [];
+        private var mCurrentLayer, mCtx;
+
+        private var mTileset;
+
+        /**
+         * @overload Level
+         *
+         * Creates a new level object.
+         *
+         * @param json The Tiled level in JSON format.
+         * @param tileset An HTML "img" element containing the tileset.
+         */
+        public Level(external json, external tileset) {
+            if (json.tilesets.length == 0) {
+                throw "No tilesets were found";
+            }
+            validateFeatureSupport(json);
+
+            mWidth = json.width;
+            mHeight = json.height;
+            mTileWidth = json.tilewidth;
+            mTileHeight = json.tileheight;
+
+            mTileset = tileset;
+
+            processLevel(json);
+        }
+
+        /**
+         * Renders the level to the DOM.
+         *
+         * @param container A DOM element. Must be an instance of Externals.DOM.HTMLElement.
+         */
+        public void render(external container) {
+            if (!(container instanceof Externals.DOM.HTMLElement)) {
+                throw "Container must be a DOM element";
+            }
+
+            for (int i = 0, len = mLayerCanvases.length; i < len; ++i) {
+                container.appendChild(mLayerCanvases[i]);
+            }
+        }
+
+        /**
+         * Reads the exported Tiled JSON.
+         *
+         * @param json The exported Tiled JSON data.
+         */
+        private void processLevel(external json) {
+            if (json.visible === false) {
+                return;
+            }
+            else if (json.orientation === "orthogonal") {
+                processOrthogonalLevel(json);
+            }
+            else {
+                throw "Unsupported level orientation";
+            }
+        }
+
+        /**
+         * Reads the JSON data for an orthogonal level and renders.
+         *
+         * @param json The exported Tiled JSON data. The 'orientation' property must be "orthogonal".
+         */
+        private void processOrthogonalLevel(external json) {
+            var layers = json.layers;
+
+            for (int i = 0, layersLength = layers.length; i < layersLength; ++i) {
+                if (layers[i].type == "objectgroup") {
+                    // TODO: implement object layers
+                }
+                else {
+                    addTileLayer(layers[i].width, layers[i].height);
+                    new OrthogonalTileLayer( this,
+                                             mTileset,
+                                             json.tilesets[0],
+                                             (int[]) layers[i].data,
+                                             mCtx);
+                }
+            }
+        }
+
+        /**
+         * Adds a tile layer to the level.
+         *
+         * @param width The width of the tile layer.
+         * @param height The height of the tile layer.
+         */
+        private void addTileLayer(unsigned int width, unsigned int height) {
+            var canvas = document.createElement("canvas");
+            canvas.width = mWidth * mTileWidth;
+            canvas.height = mHeight * mTileHeight;
+
+            mLayerCanvases.push(canvas);
+            selectTileLayer(mLayerCanvases.length - 1);
+        }
+
+        /**
+         * Selects a tile layer based on index.
+         *
+         * @param index The index of the tile layer to select.
+         */
+        private void selectTileLayer(int index) {
+            mCurrentLayer = mLayerCanvases[index];
+            mCtx = mCurrentLayer.getContext("2d");
+        }
+
+        private void validateFeatureSupport(external json) {
+            if (json.tilesets.length > 1) {
+                throw "Multiple tilesets are not supported";
+            }
+            for (int i=0, len=json.layers.length; i<len; ++i) {
+                var layer = json.layers[i];
+                if (layer.opacity !== undefined && layer.opacity != 1) {
+                    throw "'opacity is not supported'";
+                }
+                if (layer.compression !== undefined || layer.encoding !== undefined) {
+                    throw "encoded data are not supported";
+                }
+                if (json.orientation !== "orthogonal") {
+                    throw "Unsupported level orientation";
+                }
+            }
+        }
+
+        /**
+         * Gets the level width.
+         *
+         * @return The level width.
+         */
+        public property unsigned int width() {
+            return mWidth;
+        }
+        /**
+         * Gets the level height.
+         *
+         * @return The level height.
+         */
+        public property unsigned int height() {
+            return mHeight;
+        }
+        /**
+         * Gets the tile width for the level.
+         *
+         * @return The tile width for the level.
+         */
+        public property unsigned int tileWidth() {
+            return mTileWidth;
+        }
+        /**
+         * Gets the tile height for the level.
+         *
+         * @return The tile height for the level.
+         */
+        public property unsigned int tileHeight() {
+            return mTileHeight;
+        }
+    }
+}

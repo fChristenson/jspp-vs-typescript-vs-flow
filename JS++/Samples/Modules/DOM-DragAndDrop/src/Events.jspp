@@ -1,0 +1,32 @@
+// JS++ DOM Drag & Drop Sample, Events module
+
+import Externals.DOM;
+
+module JSPPSamples.DragAndDrop.Events {
+    // Compatibility for older versions of Internet Explorer that use
+    // "attachEvent"/"removeEvent" instead of "addEventListener"/"removeEventListener"
+    public bool addEvent(external element, string eventType, external eventHandler) {
+        if (element.attachEvent) {
+            element["e" + eventType + eventHandler] = eventHandler;
+            element[eventType + eventHandler] = function() {
+                element["e" + eventType + eventHandler](window.event);
+            };
+            return element.attachEvent("on" + eventType, element[eventType + eventHandler]);
+        }
+        else {
+            element.addEventListener(eventType, eventHandler, false);
+            return true;
+        }
+    }
+
+    public bool removeEvent(external element, string eventType, external eventHandler) {
+        if ( element.detachEvent ) {
+            element[eventType + eventHandler] = null;
+            return element.detachEvent("on" + eventType, element[eventType + eventHandler]);
+        }
+        else {
+            element.removeEventListener(eventType, eventHandler, false);
+            return true;
+        }
+    }
+}

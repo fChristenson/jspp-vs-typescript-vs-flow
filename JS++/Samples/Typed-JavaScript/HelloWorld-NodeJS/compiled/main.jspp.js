@@ -1,0 +1,3 @@
+// Compiled with JS++ v.0.7.1
+
+!function(){var http=require("http");ah=function(){if(typeof console!=="undefined"&&typeof console.log==="function"){return(console);}else {return(void 0);}}();ai=function(){if(typeof console!=="undefined"&&typeof console.log==="function"){return(console.log);}else if(typeof print==="function"){return(print);}else {return((function(){}));}}();!function(){var hostname='127.0.0.1';var port=1337|0;http.createServer(function(req,res){res.writeHead(200,({'Content-Type':'text/plain'}));res.end('Hello World\n');}).listen(port,hostname,function(){var e=hostname;var f="Server running at http://"+e;var g=f+":";var h=port|0;var j=h+"";var l=g+j;var m=l+"/";var p=m;ai.apply(ah,[p]);});}();}();

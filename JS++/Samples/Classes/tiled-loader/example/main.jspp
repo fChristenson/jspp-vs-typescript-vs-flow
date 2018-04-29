@@ -1,0 +1,9 @@
+import Tiled;
+import Externals.DOM;
+
+external global = (function(){ return this; }).call();
+
+global.jsonp = void(external levelJson) {
+    Level level = new Level(levelJson, document.getElementById("tileset"));
+    level.render(document.getElementById("render"));
+};

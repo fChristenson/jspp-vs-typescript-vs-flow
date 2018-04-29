@@ -1,0 +1,17 @@
+external jQuery, $;
+
+var $el;
+void moveLeft(int pixels, void() callback) {
+	$el.animate({ left: "-=" + pixels.toString() + "px" }, callback);
+}
+void moveRight(int pixels, void() callback) {
+	$el.animate({ left: "+=" + pixels.toString() + "px" }, callback);
+}
+void bounce() {
+	moveRight(350, void() {
+		moveLeft(350, bounce);
+	});
+}
+
+$el = $("#ball");
+bounce();

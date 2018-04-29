@@ -1,0 +1,4 @@
+external jQuery, $;
+
+string message = "Hello World";
+$("#message").text(message);

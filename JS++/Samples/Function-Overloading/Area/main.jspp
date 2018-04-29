@@ -1,0 +1,32 @@
+import System;
+
+// Area of a circle
+double area(double r) {
+    return Math.PI * r * r;
+}
+
+// Area of a rectangle
+double area(double w, double l) {
+    return w * l;
+}
+
+// Area of a rectangle
+unsigned int area(unsigned int w, unsigned int l) {
+    return w * l;
+}
+
+// Area of a Cuboid
+double area(double w, double l, double h) {
+    return 2 * (l * w + w * h + h * l);
+}
+
+// Area of a Cuboid
+unsigned int area(unsigned int w, unsigned int l, unsigned int h) {
+    return 2 * (l * w + w * h + h * l);
+}
+
+Console.log("Area of a circle: " + area(3).toString());
+Console.log("Area of a rectangle (floating point): " + area(2.5, 5.4).toString());
+Console.log("Area of a rectangle (integer): " + area(3, 4).toString());
+Console.log("Area of a cuboid (floating point): " + area(2.5, 3.4, 5.4).toString());
+Console.log("Area of a cuboid (integer): " + area(3, 4, 5).toString());

@@ -1,0 +1,20 @@
+import JSPPSamples.Animate.JQuery;
+
+module JSPPSamples.Animate.Bounce {
+    public void bounce($el) {
+        void runAnimation() {
+            moveRight($el, 350, void() {
+                moveLeft($el, 350, runAnimation);
+            });
+        }
+        runAnimation();
+    }
+
+    private void moveLeft($el, int pixels, void() callback) {
+        $el.animate({ left: "-=" + pixels.toString() + "px" }, callback);
+    }
+
+    private void moveRight($el, int pixels, void() callback) {
+        $el.animate({ left: "+=" + pixels.toString() + "px" }, callback);
+    }
+}

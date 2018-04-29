@@ -1,0 +1,9 @@
+// JS++ jQuery Drag & Drop Sample
+
+import JSPPSamples.DragAndDrop;
+import JSPPSamples.DragAndDrop.JQuery;
+
+var $draggable = $("#monkey");
+
+$draggable.click(DragAndDrop.onClickPreventDefault);
+$draggable.mousedown(DragAndDrop.getOnMouseDown($draggable));

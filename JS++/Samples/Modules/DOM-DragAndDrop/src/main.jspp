@@ -1,0 +1,43 @@
+// JS++ DOM Drag & Drop Sample
+
+import Externals.DOM;
+import JSPPSamples.DragAndDrop.Events;
+
+var draggable = document.getElementById("monkey");
+
+// Prevent "ghost" image by removing default click action
+addEvent(draggable, "click", bool(external evt) {
+	evt.preventDefault();
+	return false;
+});
+
+// This is the actual drag & drop logic
+// When we click the draggable element, we activate "mousemove" and "mouseup"
+// listeners. The draggable element will continue to follow the user's cursor
+// (via "mousemove") until the user releases the mouse button (via "mouseup")
+addEvent(draggable, "mousedown", bool(external evt) {
+	evt.preventDefault();
+
+	void dragMove(external _evt) {
+		int mouseX = window.event ? window.event.clientX : _evt.pageX;
+		int mouseY = window.event ? window.event.clientY : _evt.pageY;
+
+		int adjustX = draggable.offsetWidth / 2;
+		int adjustY = draggable.offsetHeight / 2;
+
+		int positionX = mouseX - adjustX;
+		int positionY = mouseY - adjustY;
+
+		draggable.style.left = positionX.toString() + "px";
+		draggable.style.top  = positionY.toString() + "px";
+	}
+	void dragEnd() {
+		removeEvent(window, "mousemove", dragMove);
+		removeEvent(window, "mouseup", dragEnd);
+	}
+
+	addEvent(window, "mousemove", dragMove);
+	addEvent(window, "mouseup", dragEnd);
+
+	return false;
+});

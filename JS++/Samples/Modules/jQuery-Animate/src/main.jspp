@@ -1,0 +1,5 @@
+import JSPPSamples.Animate.JQuery;
+import JSPPSamples.Animate.Bounce;
+
+var $el = $("#ball");
+bounce($el);

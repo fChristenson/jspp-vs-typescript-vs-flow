@@ -1,0 +1,3 @@
+// Compiled with JS++ v.0.7.1
+
+!function(){!function(){var $draggable=$("#monkey");$draggable.click(function(evt){evt.preventDefault();return(false);});$draggable.mousedown(function(evt){evt.preventDefault();$(window).mousemove(function(_evt){var mouseX=(window.event?window.event.clientX:_evt.pageX)|0;var mouseY=(window.event?window.event.clientY:_evt.pageY)|0;var adjustX=$draggable.width()/2|0;var adjustY=$draggable.height()/2|0;var positionX=mouseX-adjustX|0;var positionY=mouseY-adjustY|0;$draggable.offset(({left:positionX,top:positionY}));});$(window).mouseup(function(){$(window).unbind("mousemove");$(window).unbind("mouseup");});return(false);});}();}();

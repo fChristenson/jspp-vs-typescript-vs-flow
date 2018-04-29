@@ -1,0 +1,5 @@
+
+module JSPPSamples.Animate.JQuery {
+    public external jQuery;
+    public external $;
+}

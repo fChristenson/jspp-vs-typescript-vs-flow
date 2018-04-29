@@ -1,0 +1,5 @@
+// JS++ jQuery Drag & Drop Sample - external module to declare jQuery
+
+module JSPPSamples.DragAndDrop.JQuery {
+    public external jQuery, $;
+}

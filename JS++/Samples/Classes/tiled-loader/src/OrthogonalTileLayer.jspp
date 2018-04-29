@@ -1,0 +1,80 @@
+import Externals.DOM;
+
+module Tiled
+{
+    /**
+     * The 'OrthogonalTileLayer' class represents a Tiled layer for orthogonal tiles.
+     */
+    class OrthogonalTileLayer
+    {
+        private int[] mData;
+        private var mTileset;
+        private var mCtx;
+        private Level mLevel;
+        private int mTileColumns;
+        private int mSpacing;
+
+        /**
+         * Creates a new orthogonal tile layer.
+         *
+         * @param level The level object to add the orthogonal tile layer to.
+         * @param tilesetImg A DOM image element.
+         * @param tilesetInfo The tileset info from the exported Tiled JSON: jsonData.tilesets[index]
+         * @param mapData The layer data from the exported Tiled JSON: jsonData.layers[index].data
+         * @param ctx The canvas context to render to.
+         */
+        public OrthogonalTileLayer(Level level, external tilesetImg, external tilesetInfo, int[] mapData, external ctx) {
+            mCtx = ctx;
+            mData = mapData;
+            mLevel = level;
+            mTileColumns = tilesetInfo.columns;
+            mSpacing = tilesetInfo.spacing;
+
+            mTileset = new Image();
+            mTileset.onload = this.processLayer;
+            mTileset.src = tilesetImg.src;
+        }
+
+        /**
+         * Reads the data for an orthogonal level layer and renders to canvas.
+         */
+        private void processLayer() {
+            int tileWidth = (int) mLevel.tileWidth;
+            int tileHeight = (int) mLevel.tileHeight;
+
+            for (int i = 0, len = mData.length; i < len; ++i) {
+                int tileId = mData[i];
+
+                if (tileId === 0) {
+                    continue;
+                }
+
+                int tileYId = tileId / mTileColumns;
+                int tileXId = (tileId % mTileColumns) - 1;
+                if (tileXId == -1) {
+                    tileXId = mTileColumns - 1;
+                    tileYId--;
+                }
+
+                int drawYId = i / (int) mLevel.width;
+                int drawXId = i % (int) mLevel.width;
+
+                if (tileXId == -1) {
+                    continue;
+                }
+
+                int tileX = tileXId * tileWidth + (tileXId + 1) * mSpacing;
+                int tileY = tileYId * tileHeight + (tileYId + 1) * mSpacing;
+
+                int drawX = drawXId * tileWidth;
+                int drawY = drawYId * tileHeight;
+
+                mCtx.drawImage( mTileset,
+                                tileX, tileY,
+                                tileWidth, tileHeight,
+                                drawX, drawY,
+                                tileWidth, tileHeight);
+            }
+        }
+    }
+}

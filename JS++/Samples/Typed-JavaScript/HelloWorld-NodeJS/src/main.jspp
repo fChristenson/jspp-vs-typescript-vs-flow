@@ -1,0 +1,14 @@
+import System;
+
+external require;
+external http = require("http");
+
+string hostname = '127.0.0.1';
+int port = 1337;
+
+http.createServer(void(external req, external res) {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello World\n');
+}).listen(port, hostname, void() {
+    Console.log("Server running at http://" + hostname + ":" + port.toString() + "/");
+});

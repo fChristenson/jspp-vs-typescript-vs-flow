@@ -1,0 +1,55 @@
+<!doctype html>
+<meta charset="utf-8"/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/addon/fold/foldgutter.css">
+
+<style type="text/css">
+body {font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;}
+.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
+</style>
+
+<h2>jspp-codemirror demo</h2>
+
+<textarea id="code" name="code">
+class StringArray
+{
+    // Array of reference types (instance of System.String)
+    private System.String[] mData = [];
+
+    public StringArray() {}
+    public StringArray(System.String[] data) {
+        mData = date;
+    }
+ 
+    // Implicit conversion from external to StringArray
+    public static import(external ex) {
+        // Confirm the external is at least an array
+        assert(typeid ex == "Array");
+
+        System.String[] data = [];
+
+        for (int i = 0, len = ex.length; i < len; ++i) {
+            data.push((string) ex[i]);
+        }
+
+        return new StringArray(data);
+    }
+}
+</textarea>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/addon/mode/simple.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/addon/fold/foldcode.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/addon/fold/foldgutter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/addon/fold/brace-fold.js"></script>
+<script src="jspp.js"></script>
+
+<script>
+var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    mode: 'jspp',
+    lineNumbers: true,
+    foldGutter: true,
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+});
+</script>

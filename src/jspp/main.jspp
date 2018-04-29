@@ -1,0 +1,4 @@
+import System;
+
+Console.log("foo");
+Console.log("--------------------------");
