@@ -2,7 +2,7 @@
   "name": "jspp-vs-typescript-vs-flow",
   "version": "1.0.0",
   "scripts": {
-    "build:flow": "npx webpack && open index.html",
+    "build:flow": "npx webpack && open index.flow.html",
     "build:typescript": "npx tsc src/typescript/main.ts --outFile dist-typescript/main.js",
     "build:jspp": "./JS++/js++ src/jspp/main.jspp -o dist-jspp/main.js",
     "prebuild:jspp": "mkdir -p dist-jspp",
