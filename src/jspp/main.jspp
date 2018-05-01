@@ -1,4 +1,8 @@
 import System;
 
-Console.log("foo");
-Console.log("--------------------------");
+function foo(string foo) {
+  Console.log(foo);
+  Console.log('--------------------------');
+};
+
+foo("foo");

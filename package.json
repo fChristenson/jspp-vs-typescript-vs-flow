@@ -2,9 +2,7 @@
   "name": "jspp-vs-typescript-vs-flow",
   "version": "1.0.0",
   "scripts": {
-    "build": "npm run build:flow & npm run build:typescript & npm run build:jspp",
-    "prebuild": "npm run clean",
-    "build:flow": "npx babel src/flow/ -d dist-flow",
+    "build:flow": "npx webpack && open index.html",
     "build:typescript": "npx tsc src/typescript/main.ts --outFile dist-typescript/main.js",
     "build:jspp": "./JS++/js++ src/jspp/main.jspp -o dist-jspp/main.js",
     "prebuild:jspp": "mkdir -p dist-jspp",
@@ -16,7 +14,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-flow": "^6.23.0",
-    "typescript": "^2.8.3"
+    "flow-bin": "^0.71.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.1.2"
   }
 }
