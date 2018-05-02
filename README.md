@@ -21,9 +21,14 @@ Pro
 * Great VS code support
 * Easy to get started
 * Language server
+* File extension
+* Possible to set noImplicitAny
+* Has Window type
+* Complile error on parseInt(Array<string>)
 
 Con
 * Migration
+* No optional values (Optional params is not good enough)
 
 ## Flow
 
@@ -33,12 +38,13 @@ Pro
 * Language server
 * Easy to get started
 * Optional values
+* Compile error on returning undefined on a typed function
 
 Con
+* Migration
 * No window type
 * unclear-type useless when using window
 * Could pass Array<string> to parseInt
-* Slow linting for some files
 * Easy to forget @flow comment
 
 ## JS++

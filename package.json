@@ -3,13 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "build:flow": "npx webpack && open index.flow.html",
-    "build:typescript": "npx tsc src/typescript/main.ts --outFile dist-typescript/main.js",
+    "build:typescript": "npx webpack && open index.typescript.html",
     "build:jspp": "./JS++/js++ src/jspp/main.jspp -o dist-jspp/main.js",
     "prebuild:jspp": "mkdir -p dist-jspp",
     "clean": "rm -rf dist*",
-    "run:flow": "npm run build:flow && node dist-flow/main.js",
-    "run:typescript": "npm run build:typescript && node dist-typescript/main.js",
-    "run:jspp": "npm run build:jspp && node dist-jspp/main.js",
     "make:jspp": "cp -r 'JS++/Editor Integration/Visual Studio Code/jspp' ~/.vscode/extensions/jspp"
   },
   "devDependencies": {
@@ -17,7 +14,9 @@
     "babel-loader": "^7.1.4",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.71.0",
+    "ts-loader": "^4.2.0",
     "typescript": "^2.8.3",
+    "typescript-loader": "^1.1.3",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.1.2"
   }
