@@ -22,6 +22,7 @@ Pro
 * Easy to get started
 * Language server
 * File extension
+* Tslint
 * Possible to set noImplicitAny
 * Has Window type
 * Complile error on parseInt(Array<string>)
