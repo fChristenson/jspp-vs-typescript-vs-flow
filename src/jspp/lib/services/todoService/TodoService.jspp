@@ -1,0 +1,20 @@
+external Todo;
+external TodoList;
+
+class TodoService {
+  public TodoService(window) {
+    this.window = window;
+    this.todos = [];
+  }
+
+  public void addTodo(Todo todo) {
+    this.todos.push(todo);
+  }
+
+  public void appendTodoListToDom() {
+    this.window.document.body.insertAdjacentHTML(
+      "beforeend",
+      TodoList.render(this.todos)
+    );
+  }
+}

@@ -1,0 +1,9 @@
+external Todo;
+
+function render(todos) {
+  string todoList = todos.map(function(todo) {
+    return '<li>' + todo.text + '</li>';
+  }).join("");
+  
+  return '<ul>' + todoList + '</ul>';
+};

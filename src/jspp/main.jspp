@@ -1,8 +1,13 @@
-import System;
+external require;
+external Todo = require('./lib/services/index.jspp').Todo;
+external todoService = require('./lib/services/index.jspp').todoService;
 
-function foo(string foo) {
-  Console.log(foo);
-  Console.log('--------------------------');
-};
+var todo = new Todo("foo");
+var todo2 = new Todo("bar");
+var todo3 = new Todo("baz");
 
-foo("foo");
+todoService.addTodo(todo);
+todoService.addTodo(todo2);
+todoService.addTodo(todo3);
+
+todoService.appendTodoListToDom();

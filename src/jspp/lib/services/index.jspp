@@ -1,0 +1,3 @@
+external todoService;
+
+var todoService = new TodoService(window);

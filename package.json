@@ -4,7 +4,7 @@
   "scripts": {
     "build:flow": "npx webpack && open index.flow.html",
     "build:typescript": "npx webpack && open index.typescript.html",
-    "build:jspp": "./JS++/js++ src/jspp/main.jspp -o dist-jspp/main.js",
+    "build:jspp": "./JS++/js++ src/jspp/main.jspp -o dist-jspp/main.js && open index.jspp.html",
     "prebuild:jspp": "mkdir -p dist-jspp",
     "clean": "rm -rf dist*",
     "make:jspp": "cp -r 'JS++/Editor Integration/Visual Studio Code/jspp' ~/.vscode/extensions/jspp"
